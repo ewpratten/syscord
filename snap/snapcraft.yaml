@@ -1,0 +1,17 @@
+name: syscord
+version: git
+summary: Display system status as Discord Rich Presence
+description: Display system status as Discord Rich Presence
+
+base: core20
+confinement: devmode
+
+
+parts:
+  boxletters:
+    plugin: rust
+    source: .
+
+apps:
+  boxletters:
+    command: bin/syscord
