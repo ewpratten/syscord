@@ -1,0 +1,54 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Automatic Release
+
+jobs:
+  release:
+    name: Rust Release
+    runs-on: ubuntu-latest
+    steps:
+
+      # Pull in the source
+      - uses: actions/checkout@v2
+        name: Checkout Source
+
+      # Pull the toolchain
+      - uses: actions-rs/toolchain@v1
+        name: Install Toolchain
+        with:
+          toolchain: stable
+
+      # Install cargo-deb
+      - uses: actions-rs/cargo@v1
+        name: Install cargo-deb
+        with:
+          command: install
+          args: cargo-deb
+
+      # Install cross
+      - uses: actions-rs/cargo@v1
+        name: Install cross
+        with:
+          command: install
+          args: cross
+
+      # Build for Debian / Ubuntu
+      - uses: actions-rs/cargo@v1
+        name: Debian Build
+        with:
+          command: deb
+
+      # Build for Windows
+      - name: Windows Build
+        run: cross build --release --target x86_64-pc-windows-gnu
+
+      # Publish the release
+      - uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: "target/debian/syscord_*.deb,target/x86_64-pc-windows-gnu/release/syscord.exe"
+          prerelease: true
+          token: ${{ secrets.GITHUB_TOKEN }}
