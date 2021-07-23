@@ -2,10 +2,14 @@ name: syscord
 version: git
 summary: Display system status as Discord Rich Presence
 description: Display system status as Discord Rich Presence
+donation: https://github.com/sponsors/Ewpratten
+source-code: https://github.com/Ewpratten/syscord
+grade: stable
+architectures:
+  - build-on: [amd64, arm64]
 
 base: core20
 confinement: devmode
-
 
 parts:
   boxletters:
