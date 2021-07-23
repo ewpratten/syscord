@@ -1,6 +1,6 @@
 [package]
 name = "syscord"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Evan Pratten <ewpratten@gmail.com>"]
 edition = "2018"
 description = "Display system status as Discord Rich Presence"
@@ -17,7 +17,7 @@ categories = []
 clap = "2.33"
 sysinfo = "0.19"
 discord-sdk = "0.1"
-tokio = { version = "1.9", features = ["rt", "macros"] }
+tokio = { version = "1.9", features = ["macros"] }
 ctrlc = "3.1"
 colored = "2.0.0"
 tracing = "0.1"

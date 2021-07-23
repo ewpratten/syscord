@@ -131,6 +131,10 @@ async fn main() {
     // Set up the update interval
     let mut interval = tokio::time::interval(Duration::from_secs(interval_int));
 
+    // Set up and connect to Discord
+    let discord_client = discord::make_client(discord_sdk::Subscriptions::ACTIVITY).await;
+    let mut activity_events = discord_client.wheel.activity();
+
     // Create the arc for sig handling
     let running = Arc::new(AtomicBool::new(true));
     {
@@ -140,10 +144,6 @@ async fn main() {
         })
         .expect("Error setting Ctrl-C handler");
     }
-
-    // Set up and connect to Discord
-    let discord_client = discord::make_client(discord_sdk::Subscriptions::ACTIVITY).await;
-    let mut activity_events = discord_client.wheel.activity();
 
     // Spawn a handler for discord RPC events incoming
     tokio::task::spawn(async move {
