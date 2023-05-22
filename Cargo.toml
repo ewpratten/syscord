@@ -25,3 +25,11 @@ tracing-subscriber = "0.2"
 byte-unit = "4.0"
 chrono = "0.4"
 os_type = "2.3"
+[package.metadata.rpm]
+package = "syscord"
+
+[package.metadata.rpm.cargo]
+buildflags = ["--release"]
+
+[package.metadata.rpm.targets]
+syscord = { path = "/usr/bin/syscord" }
